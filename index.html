@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WERONIKA — Pixel Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== ANIMATED PARTICLE BACKGROUND ===== -->
+  <canvas id="particles"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- ===== BOOT / LOADING OVERLAY ===== -->
+  <div id="boot" class="boot">
+    <div class="boot-inner">
+      <div class="boot-logo">WERONIKA</div>
+      <div class="boot-sub">SYSTEM // 2026</div>
+      <div class="loadbar"><div class="loadbar-fill" id="loadFill"></div></div>
+      <div class="boot-pct" id="loadPct">0%</div>
+      <div class="boot-tip" id="bootTip">loading assets...</div>
+    </div>
+  </div>
+
+  <!-- ===== TOP HUD ===== -->
+  <header id="hud" class="hud hidden">
+    <div class="hud-left">
+      <span class="hud-xp-label">XP</span>
+      <span class="hud-class" id="hudClass">VISUAL DESIGNER</span>
+      <div class="xpbar"><div class="xpbar-fill" id="xpFill"></div></div>
+      <span class="hud-lvl" id="hudLvl">LV 7</span>
+    </div>
+    <div class="hud-right">
+      <button class="hud-btn" id="navHome" title="Back to hub">▮ HUB</button>
+      <button class="hud-btn" id="achBtn" title="Achievements">★ <span id="achCount">0</span></button>
+      <div class="hearts" id="hearts" aria-hidden="true"></div>
+      <button class="hud-btn sound-btn" id="soundBtn" title="Toggle sound">♪ SFX: <span id="soundState">OFF</span></button>
+      <span class="hud-player">PLAYER 01</span>
+    </div>
+  </header>
+
+  <!-- ===== LANDING SCREEN ===== -->
+  <main id="screen-landing" class="screen screen-landing active">
+    <div class="marquee" id="marqueeTop"></div>
+    <div class="landing-frame">
+      <div class="landing-year" id="lYear">2026</div>
+      <h1 class="landing-title" id="lTitle">PORTFOLIO</h1>
+      <div class="landing-name" id="lName">WERONIKA</div>
+      <button id="startBtn" class="start-btn">PRESS START</button>
+      <div class="start-hint" id="lHint">PRESS START TO BEGIN</div>
+    </div>
+    <div class="landing-foot">
+      <span id="lTag">FREELANCE GRAPHIC &amp; BRAND DESIGNER</span>
+      <span class="blink">▌</span>
+    </div>
+    <div class="marquee marquee-rev" id="marqueeBot"></div>
+  </main>
+
+  <!-- ===== MAIN HUB ===== -->
+  <section id="screen-hub" class="screen screen-hub">
+    <div class="hub-head">
+      <div class="hub-kicker">MAIN MENU // SELECT A QUEST</div>
+      <h2 class="hub-title" id="hubName">WERONIKA</h2>
+      <div class="hub-tagline" id="hubTag"></div>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+    <div class="hub-foot" id="hubFoot"></div>
+  </section>
+
+  <!-- ===== SECTION SCREENS (filled by JS) ===== -->
+  <section id="screen-logos"  class="screen screen-section"></section>
+  <section id="screen-fonts"  class="screen screen-section"></section>
+  <section id="screen-brand"  class="screen screen-section"></section>
+  <section id="screen-social" class="screen screen-section"></section>
+  <section id="screen-cards"  class="screen screen-section"></section>
+  <section id="screen-about"  class="screen screen-section"></section>
+
+  <!-- ===== FLOATING WINDOWS LAYER ===== -->
+  <div id="windowLayer" class="window-layer"></div>
+
+  <!-- ===== ACHIEVEMENT TOASTS ===== -->
+  <div id="toastLayer" class="toast-layer"></div>
+
+  <!-- ===== ACHIEVEMENTS PANEL ===== -->
+  <div id="achPanel" class="ach-panel hidden">
+    <div class="ach-panel-bar">
+      <span>★ ACHIEVEMENTS</span>
+      <button id="achClose" class="x-btn">×</button>
+    </div>
+    <div class="ach-panel-body" id="achList"></div>
+  </div>
+
+  <!-- ===== SECRET / EASTER EGG OVERLAY ===== -->
+  <div id="secret" class="secret hidden">
+    <div class="secret-box">
+      <div class="secret-title">✦ SECRET WARP ✦</div>
+      <p class="secret-msg">You found the cheat code.<br />+50 XP &amp; a hidden badge unlocked.</p>
+      <button id="secretClose" class="start-btn small">CLOSE</button>
+    </div>
+  </div>
+
+  <div id="transition" class="transition" aria-hidden="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

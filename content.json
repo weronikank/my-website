@@ -1,0 +1,103 @@
+{
+  "player": {
+    "name": "WERONIKA",
+    "tagline": "FREELANCE GRAPHIC & BRAND DESIGNER",
+    "class": "VISUAL DESIGNER",
+    "level": 7,
+    "xp": 40,
+    "xpToNext": 100,
+    "title2026": "2026 PORTFOLIO",
+    "startHint": "PRESS START TO BEGIN"
+  },
+
+  "menu": [
+    { "id": "logos",   "label": "LOGO VAULT",          "sub": "Identity marks",      "icon": "vault",  "tag": "01" },
+    { "id": "fonts",   "label": "FONT FORGE",          "sub": "Custom type",         "icon": "forge",  "tag": "02" },
+    { "id": "brand",   "label": "BRAND LAB",           "sub": "Palettes & systems",  "icon": "lab",    "tag": "03" },
+    { "id": "social",  "label": "SOCIAL MEDIA ARCADE", "sub": "Posts & graphics",    "icon": "arcade", "tag": "04" },
+    { "id": "cards",   "label": "BUSINESS CARD INVENTORY", "sub": "Collectibles",    "icon": "cards",  "tag": "05" },
+    { "id": "about",   "label": "ABOUT THE DESIGNER",  "sub": "Character profile",   "icon": "about",  "tag": "06" }
+  ],
+
+  "logos": [
+    { "id": "lg1", "name": "BLOOM COSMETICS", "year": "2025", "tags": ["Beauty", "Wordmark"], "swatch": "#ff3ea5", "note": "A soft serif mark with a petal counter built into the 'O'." },
+    { "id": "lg2", "name": "PIXEL DINER",     "year": "2025", "tags": ["Food", "Mascot"],    "swatch": "#39ff14", "note": "8-bit burger mascot for a retro arcade-themed diner." },
+    { "id": "lg3", "name": "NOVA STUDIO",     "year": "2024", "tags": ["Tech", "Monogram"],  "swatch": "#2de2e6", "note": "An N/V monogram that doubles as a shooting star." },
+    { "id": "lg4", "name": "AMBER & OAK",     "year": "2024", "tags": ["Craft", "Emblem"],   "swatch": "#ffb13e", "note": "Hand-built emblem for a small-batch furniture maker." },
+    { "id": "lg5", "name": "LUNA RECORDS",    "year": "2023", "tags": ["Music", "Mark"],     "swatch": "#b14bff", "note": "Crescent + soundwave lockup for an indie label." },
+    { "id": "lg6", "name": "GREENHOUSE CO.",  "year": "2023", "tags": ["Plants", "Logo"],    "swatch": "#5dff8f", "note": "A leaf negative-space mark inside a greenhouse frame." }
+  ],
+
+  "fonts": [
+    { "id": "ft1", "name": "WERO PIXEL",  "style": "Display / Bitmap", "css": "'Press Start 2P', monospace", "blurb": "A chunky 8-bit display face for headers & game UI.", "sample": "LEVEL UP!" },
+    { "id": "ft2", "name": "TERMINAL 86", "style": "Mono / Text",      "css": "'VT323', monospace",          "blurb": "Hi-readability terminal type for body copy.",        "sample": "loading assets..." },
+    { "id": "ft3", "name": "ARCADE NEON", "style": "Pixel / Outline",  "css": "'Silkscreen', monospace",     "blurb": "Compact pixel face built for tiny labels & HUDs.",   "sample": "INSERT COIN" }
+  ],
+
+  "branding": [
+    { "id": "br1", "name": "SUNSET ARCADE", "vibe": "Warm / Playful", "colors": ["#ff3ea5", "#ff8c42", "#ffe34d", "#2de2e6", "#1a0b22"] },
+    { "id": "br2", "name": "NEON GARDEN",   "vibe": "Fresh / Bold",   "colors": ["#39ff14", "#5dff8f", "#2de2e6", "#b14bff", "#0b0511"] },
+    { "id": "br3", "name": "CANDY OS",      "vibe": "Y2K / Sweet",    "colors": ["#ff66c4", "#ffb3e6", "#b14bff", "#7fd6ff", "#fff4fb"] },
+    { "id": "br4", "name": "MIDNIGHT QUEST","vibe": "Dark / Moody",   "colors": ["#b14bff", "#6a2cff", "#2de2e6", "#ff3ea5", "#070310"] }
+  ],
+
+  "social": [
+    { "id": "sc1", "title": "LAUNCH CAROUSEL",  "platform": "Instagram", "likes": "2.4k", "swatch": "#ff3ea5" },
+    { "id": "sc2", "title": "QUOTE SERIES",     "platform": "Instagram", "likes": "1.1k", "swatch": "#b14bff" },
+    { "id": "sc3", "title": "SALE BANNER",      "platform": "Story",     "likes": "980",  "swatch": "#39ff14" },
+    { "id": "sc4", "title": "PRODUCT GRID",     "platform": "Feed",      "likes": "3.2k", "swatch": "#2de2e6" },
+    { "id": "sc5", "title": "EVENT FLYER",      "platform": "Poster",    "likes": "760",  "swatch": "#ffb13e" },
+    { "id": "sc6", "title": "MEME PACK",        "platform": "Reel",      "likes": "5.6k", "swatch": "#ff66c4" }
+  ],
+
+  "businessCards": [
+    { "id": "bc1", "name": "GOLD FOIL CLASSIC", "rarity": "LEGENDARY", "stock": "350gsm matte", "swatch": "#ffe34d" },
+    { "id": "bc2", "name": "NEON SPLICE",       "rarity": "EPIC",      "stock": "Spot UV gloss", "swatch": "#39ff14" },
+    { "id": "bc3", "name": "PASTEL MINIMAL",    "rarity": "RARE",      "stock": "Soft-touch",    "swatch": "#ffb3e6" },
+    { "id": "bc4", "name": "DIE-CUT CORNER",    "rarity": "EPIC",      "stock": "Rounded 400gsm", "swatch": "#2de2e6" },
+    { "id": "bc5", "name": "RISO DOUBLE",       "rarity": "RARE",      "stock": "Risograph 2-color", "swatch": "#ff3ea5" },
+    { "id": "bc6", "name": "HOLO PRISM",        "rarity": "LEGENDARY", "stock": "Holographic foil", "swatch": "#b14bff" }
+  ],
+
+  "about": {
+    "name": "WERONIKA",
+    "class": "VISUAL DESIGNER",
+    "level": 7,
+    "bio": "Freelance graphic & brand designer building bold identities, type and visual systems. I treat every project like a quest — clear goals, playful execution, and a satisfying finish.",
+    "stats": [
+      { "label": "CREATIVITY", "value": 95 },
+      { "label": "TYPOGRAPHY", "value": 90 },
+      { "label": "BRANDING",   "value": 88 },
+      { "label": "LAYOUT",     "value": 92 },
+      { "label": "SPEED",      "value": 80 }
+    ],
+    "skills": ["Brand Identity", "Logo Design", "Type Design", "Packaging", "Social Graphics", "Art Direction"],
+    "tools": ["Illustrator", "Photoshop", "Figma", "InDesign", "Procreate", "Blender"],
+    "experience": [
+      { "role": "Freelance Brand Designer", "place": "Self-employed",   "years": "2023 — NOW" },
+      { "role": "Junior Designer",          "place": "Studio (Agency)", "years": "2022 — 2023" },
+      { "role": "BA Graphic Design",        "place": "University",      "years": "2019 — 2022" }
+    ]
+  },
+
+  "achievements": [
+    { "id": "first_start", "name": "GAME ON",          "desc": "Pressed Start" },
+    { "id": "logos",       "name": "VAULT CRACKED",    "desc": "Opened the Logo Vault" },
+    { "id": "fonts",       "name": "TYPE SMITH",       "desc": "Entered the Font Forge" },
+    { "id": "brand",       "name": "COLOR CHEMIST",    "desc": "Visited the Brand Lab" },
+    { "id": "social",      "name": "HIGH SCORE",       "desc": "Played the Social Arcade" },
+    { "id": "cards",       "name": "COLLECTOR",        "desc": "Opened the Card Inventory" },
+    { "id": "about",       "name": "MEET THE PLAYER",  "desc": "Viewed the profile" },
+    { "id": "copy_color",  "name": "SWATCH SNATCH",    "desc": "Copied a hex code" },
+    { "id": "drag_window", "name": "WINDOW WRANGLER",  "desc": "Dragged a window" },
+    { "id": "type_forge",  "name": "WORDSMITH",        "desc": "Typed in the Font Forge" },
+    { "id": "konami",      "name": "SECRET WARP",      "desc": "Found the secret code" }
+  ],
+
+  "contact": {
+    "email": "weronikadesigns@proton.me",
+    "instagram": "@nkweronika",
+    "behance": "behance.net/weronika",
+    "availability": "OPEN FOR QUESTS — 2026"
+  }
+}
