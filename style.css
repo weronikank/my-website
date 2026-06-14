@@ -633,14 +633,16 @@ button{ font-family: var(--font-pixel); cursor: pointer; }
 @media (max-width: 860px){
   body{ font-size: 20px; }
   .menu-grid{ grid-template-columns: repeat(2,1fr); }
-  .vault-grid, .arcade-grid, .inv-grid{ grid-template-columns: repeat(2,1fr); }
+  .vault-grid, .arcade-grid{ grid-template-columns: repeat(2,1fr); }
+  .inv-grid{ grid-template-columns: repeat(3, minmax(0, 240px)); }
   .lab-grid{ grid-template-columns: 1fr; }
   .about-grid{ grid-template-columns: 1fr; }
   .char-card{ max-width: 360px; margin: 0 auto; }
 }
 @media (max-width: 560px){
   .menu-grid{ grid-template-columns: 1fr; }
-  .vault-grid, .arcade-grid, .inv-grid{ grid-template-columns: 1fr 1fr; }
+  .vault-grid, .arcade-grid{ grid-template-columns: 1fr 1fr; }
+  .inv-grid{ grid-template-columns: repeat(2, 1fr); }
   .hud{ font-size: 9px; gap: 6px; padding: 6px 8px; }
   .hud-class{ display:none; }
   .hud-btn{ font-size: 8px; padding: 6px; }
