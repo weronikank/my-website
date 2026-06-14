@@ -425,7 +425,7 @@ button{ font-family: var(--font-pixel); cursor: pointer; }
 .arcade-corner{ position:absolute; top:6px; left:6px; font-family: var(--font-tiny); font-size:9px; color:#000; background: var(--yellow); padding: 2px 5px; }
 
 /* ---------- BUSINESS CARD INVENTORY ---------- */
-.inv-grid{ display:grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 18px; justify-content:center; }
+.inv-grid{ display:grid; grid-template-columns: repeat(3, minmax(0, 300px)); gap: 18px; justify-content:center; }
 .inv-slot{
   background: linear-gradient(160deg,#20102b,#120818);
   border: var(--px) solid var(--win-dark); box-shadow: inset 0 0 0 2px rgba(255,255,255,.08);
