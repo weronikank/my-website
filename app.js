@@ -11,12 +11,14 @@
   /* ---------- global state ---------- */
   const state = {
     data: null,
-    sound: false,
+    sound: true,
     unlocked: new Set(),
     visited: new Set(),
     xp: 0,
     konami: [],
     zTop: 110,
+    level: 0,
+    booted: false,
   };
   const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   const $  = (s, r=document) => r.querySelector(s);
@@ -40,6 +42,55 @@
     let rects = '';
     grid.forEach((row,y)=>{ [...row].forEach((c,x)=>{ if(c==='1') rects += `<rect x="${x}" y="${y}" width="1" height="1"/>`; }); });
     return `<svg class="menu-ico" viewBox="0 0 7 7" fill="${color}" shape-rendering="crispEdges">${rects}</svg>`;
+  }
+
+  /* ============================================================
+     PLAYER AVATAR  (pixel self-portrait — ginger wavy hair,
+     green eyes, pale freckled skin, gold earrings)
+     ============================================================ */
+  const AVA_COLORS = {
+    o:'#b34a18', H:'#df6a2c', h:'#ff9e54',   // hair outline / mid / highlight
+    S:'#ffe7d4', k:'#f0c4a0', f:'#e0935f',   // skin / shadow / freckle
+    b:'#bf531f',                              // brow
+    w:'#ffffff', G:'#46b35f', p:'#173a20',   // eye white / green iris / pupil
+    n:'#ecae87', m:'#cd6a62',                 // nose / mouth
+    g:'#ffd24a', d:'#d9a521',                 // gold earring / shadow
+    C:'#ff3ea5', c:'#cf2c81',                 // top / top shadow
+  };
+  const AVA_ART = [
+    '......HHHHHH......',
+    '....HHhHHHHhHH....',
+    '...HHHHHHHHHHHH...',
+    '..HHHhHHHHHHhHHH..',
+    '..HHHHHSSSSSSHHHH.',
+    '.HHHHSSSSSSSSHHHHH',
+    '.HHHSSSSSSSSSSHHHH',
+    '.HHHSSbbSSSSbbSSHH',
+    '.HHHSSwGSSSSwGSSHH',
+    '.HHHSSwpSSSSwpSSHH',
+    '.HHHHSSSSnnSSSSHHH',
+    '.HHHSfSSSSSSSSfSHH',
+    '.HHHSSSSmmmmSSSSHH',
+    '.HHHHSSSmmmmSSSHHH',
+    '..HHHHSSSSSSSSHHHH',
+    '..gHHHSSSSSSSSHHHg',
+    '..dgHHHkkkkkkHHHgd',
+    '...HHHHkkkkkkHHHH.',
+    '....CCCCCCCCCC....',
+    '..CCCCCCCCCCCCCC..',
+    '.CCcCCCCCCCCCCcCC.',
+  ];
+  function avatarSVG(){
+    const W = 18, H = AVA_ART.length;
+    let rects = '';
+    AVA_ART.forEach((row,y)=>{
+      const padded = (row + '.'.repeat(W)).slice(0, W);
+      [...padded].forEach((ch,x)=>{
+        const col = AVA_COLORS[ch];
+        if(col) rects += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${col}"/>`;
+      });
+    });
+    return `<svg class="ava-svg" viewBox="0 0 ${W} ${H}" shape-rendering="crispEdges" preserveAspectRatio="xMidYMax meet">${rects}</svg>`;
   }
 
   /* ============================================================
@@ -142,6 +193,35 @@
     $('#hudLvl').textContent = 'LV ' + lvl;
     $('#hudClass').textContent = d.class;
     $('#achCount').textContent = got;
+    // level-up celebration (skip the very first sync on load)
+    if(state.booted && lvl > state.level){ levelUpFx(lvl); }
+    state.level = lvl;
+  }
+
+  /* ---------- LEVEL-UP SPARKLE / FIREWORK ---------- */
+  function levelUpFx(lvl){
+    sfx.achieve();
+    const banner = el('div','levelup', `<span class="lu-star">✦</span>LEVEL UP!<span class="lu-lvl">LV ${lvl}</span><span class="lu-star">✦</span>`);
+    document.body.appendChild(banner);
+    setTimeout(()=>banner.remove(), 1700);
+    // pixel firework burst from the XP bar
+    const xp = $('#xpFill').getBoundingClientRect();
+    const ox = xp.right - 6, oy = xp.top + xp.height/2;
+    const cols = ['#ffe34d','#ff3ea5','#39ff14','#2de2e6','#b14bff','#ff66c4'];
+    const N = 28;
+    for(let i=0;i<N;i++){
+      const s = el('div','spark');
+      const ang = (Math.PI*2*i)/N + Math.random()*0.3;
+      const dist = 60 + Math.random()*90;
+      s.style.left = ox+'px'; s.style.top = oy+'px';
+      s.style.background = cols[i%cols.length];
+      const sz = 4 + Math.floor(Math.random()*4);
+      s.style.width = s.style.height = sz+'px';
+      s.style.setProperty('--dx', Math.cos(ang)*dist+'px');
+      s.style.setProperty('--dy', Math.sin(ang)*dist+'px');
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), 900);
+    }
   }
   function buildHearts(){
     const wrap = $('#hearts'); wrap.innerHTML='';
@@ -273,7 +353,44 @@
     });
     const c = d.contact;
     $('#hubFoot').innerHTML =
-      `✉ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a> · ${esc(c.instagram)} · <b style="color:var(--yellow)">${esc(c.availability)}</b>`;
+      `<button class="contact-open" id="contactOpen">✉ CONTACT / SEND MESSAGE</button>
+       <div class="hub-foot-links">${esc(c.instagram)} · <b style="color:var(--yellow)">${esc(c.availability)}</b></div>`;
+    const co = $('#contactOpen');
+    co.addEventListener('mouseenter', sfx.hover);
+    co.addEventListener('click', openContactWindow);
+  }
+
+  /* ---------- CONTACT FORM (floating window, mailto compose) ---------- */
+  function openContactWindow(){
+    if($('.contact-win')){ return; }
+    const c = state.data.contact;
+    const win = makeWindow({ title:'CONTACT.exe', w:380, cls:'contact-win', bodyHTML:`
+      <form class="cform" autocomplete="off">
+        <label class="cf-label">NAME</label>
+        <input class="cf-input" name="name" maxlength="60" placeholder="Player name" required />
+        <label class="cf-label">YOUR EMAIL</label>
+        <input class="cf-input" name="email" type="email" maxlength="80" placeholder="you@email.com" required />
+        <label class="cf-label">MESSAGE</label>
+        <textarea class="cf-input cf-area" name="msg" maxlength="600" rows="4" placeholder="Tell me about your quest..." required></textarea>
+        <button type="submit" class="cf-send">▶ SEND MESSAGE</button>
+        <div class="cf-alt">or email direct: <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></div>
+      </form>`});
+    const form = win.querySelector('.cform');
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const fd = new FormData(form);
+      const name = (fd.get('name')||'').toString().trim();
+      const email = (fd.get('email')||'').toString().trim();
+      const msg = (fd.get('msg')||'').toString().trim();
+      if(!name || !email || !msg){ return; }
+      const subject = encodeURIComponent(`New quest from ${name}`);
+      const body = encodeURIComponent(`${msg}\n\n— ${name}\n${email}`);
+      window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+      toast('MESSAGE SENT', 'Opening your mail client...');
+      sfx.achieve();
+      form.innerHTML = `<div class="cf-thanks">✦ THANKS, ${esc(name.toUpperCase())}! ✦<br><span>Your mail app should be opening with the message ready to send.</span></div>`;
+    });
+    win.querySelectorAll('.cf-input').forEach(i=> i.addEventListener('input', ()=>beep(520+Math.random()*200,.02,'square',.02)));
   }
 
   /* ============================================================
@@ -393,26 +510,59 @@
   }
 
   /* ---------- BUSINESS CARD INVENTORY ---------- */
+  function cardArt(b, side){
+    const src = b[side];
+    if(src) return `<img class="inv-img" src="${esc(src)}" alt="${esc(b.name)} ${side}" loading="lazy" />`;
+    return `<div class="ph" style="--c:${b.swatch};width:100%;height:100%;border:none"><span class="ph-lbl">CARD ART</span></div>`;
+  }
   function renderCards(){
     const items = state.data.businessCards.map(b=>`
       <div class="inv-slot" data-id="${esc(b.id)}" style="--c:${b.swatch}">
-        <div class="inv-card" style="--c:${b.swatch}">CARD ART</div>
+        <div class="inv-card" style="--c:${b.swatch}">${cardArt(b,'front')}</div>
         <div class="inv-name">${esc(b.name)}</div>
         <div class="inv-rarity r-${esc(b.rarity)}">◆ ${esc(b.rarity)}</div>
         <div class="inv-stock">${esc(b.stock)}</div>
+        <div class="inv-flip">↻ FRONT / BACK</div>
       </div>`).join('');
-    sectionShell('cards','05','BUSINESS CARD INVENTORY','Print designs as collectible items. Rarer stocks & finishes glow brighter.',
+    sectionShell('cards','05','BUSINESS CARD INVENTORY','Print designs as collectible items. Open one to scroll between the front and back.',
       `<div class="inv-grid">${items}</div>`);
     $$('#screen-cards .inv-slot').forEach(c=>{
       c.addEventListener('mouseenter', sfx.hover);
       c.addEventListener('click', ()=>{
         const b = state.data.businessCards.find(x=>x.id===c.dataset.id);
-        makeWindow({ title: b.name, bodyHTML: `
-          <div class="ph" style="--c:${b.swatch};aspect-ratio:1.7/1"><span class="ph-lbl">CARD FRONT</span></div>
-          <div class="win-row"><b>RARITY</b><span>${esc(b.rarity)}</span></div>
-          <div class="win-row"><b>STOCK</b><span>${esc(b.stock)}</span></div>` });
+        openCardWindow(b);
       });
     });
+  }
+
+  /* card window with a swipe / scroll front↔back viewer */
+  function openCardWindow(b){
+    const win = makeWindow({ title: b.name, w: 420, cls:'card-win', bodyHTML: `
+      <div class="cardview">
+        <div class="cardview-track" data-track>
+          <figure class="cardview-slide"><div class="cardview-frame">${cardArt(b,'front')}</div><figcaption>FRONT</figcaption></figure>
+          <figure class="cardview-slide"><div class="cardview-frame">${cardArt(b,'back')}</div><figcaption>BACK</figcaption></figure>
+        </div>
+        <div class="cardview-nav">
+          <button class="cv-btn" data-prev>◀ FRONT</button>
+          <div class="cardview-dots"><span class="cv-dot is-on" data-dot="0"></span><span class="cv-dot" data-dot="1"></span></div>
+          <button class="cv-btn" data-next>BACK ▶</button>
+        </div>
+      </div>
+      <div class="win-row" style="margin-top:10px"><b>RARITY</b><span>${esc(b.rarity)}</span></div>
+      <div class="win-row"><b>STOCK</b><span>${esc(b.stock)}</span></div>` });
+
+    const track = win.querySelector('[data-track]');
+    const dots  = [...win.querySelectorAll('.cv-dot')];
+    const slides = win.querySelectorAll('.cardview-slide');
+    const goTo = (i)=>{ i=Math.max(0,Math.min(1,i)); slides[i].scrollIntoView?0:0; track.scrollTo({left: i*track.clientWidth, behavior:'smooth'}); };
+    win.querySelector('[data-prev]').addEventListener('click', e=>{ e.stopPropagation(); goTo(0); sfx.select(); });
+    win.querySelector('[data-next]').addEventListener('click', e=>{ e.stopPropagation(); goTo(1); sfx.select(); });
+    dots.forEach((d,i)=> d.addEventListener('click', e=>{ e.stopPropagation(); goTo(i); beep(660,.04); }));
+    track.addEventListener('scroll', ()=>{
+      const idx = Math.round(track.scrollLeft / Math.max(1,track.clientWidth));
+      dots.forEach((d,i)=> d.classList.toggle('is-on', i===idx));
+    }, {passive:true});
   }
 
   /* ---------- ABOUT / CHARACTER ---------- */
@@ -421,7 +571,7 @@
     sectionShell('about','06','ABOUT THE DESIGNER','Player profile — stats, skills, tools & quest log.',
       `<div class="about-grid">
         <div class="char-card">
-          <div class="char-port"><span>DROP AVATAR HERE</span></div>
+          <div class="char-port">${avatarSVG()}</div>
           <div class="char-name">${esc(a.name)}</div>
           <div class="char-class">CLASS · ${esc(a.class)}</div>
           <div class="char-lvl">LV ${esc(a.level)}</div>
@@ -476,7 +626,7 @@
      ============================================================ */
   function initInput(){
     // start
-    $('#startBtn').addEventListener('click', ()=>{ ensureCtx(); sfx.start(); unlock('first_start'); show('hub'); });
+    $('#startBtn').addEventListener('click', ()=>{ ensureCtx(); if(actx.state==='suspended') actx.resume(); sfx.start(); unlock('first_start'); show('hub'); });
     $('#startBtn').addEventListener('mouseenter', sfx.hover);
 
     // sound toggle
@@ -535,6 +685,7 @@
 
     buildHearts();
     syncHud();
+    state.booted = true;
     renderAchList();
     initPanels();
     initInput();

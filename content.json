@@ -35,10 +35,12 @@
   ],
 
   "branding": [
-    { "id": "br1", "name": "SUNSET ARCADE", "vibe": "Warm / Playful", "colors": ["#ff3ea5", "#ff8c42", "#ffe34d", "#2de2e6", "#1a0b22"] },
+    { "id": "br1", "name": "FLUFF",         "vibe": "Soft / Candy",   "colors": ["#f4b5de", "#aff700", "#fa58a7", "#3f22ec", "#03e29d", "#efca62"] },
     { "id": "br2", "name": "NEON GARDEN",   "vibe": "Fresh / Bold",   "colors": ["#39ff14", "#5dff8f", "#2de2e6", "#b14bff", "#0b0511"] },
     { "id": "br3", "name": "CANDY OS",      "vibe": "Y2K / Sweet",    "colors": ["#ff66c4", "#ffb3e6", "#b14bff", "#7fd6ff", "#fff4fb"] },
-    { "id": "br4", "name": "MIDNIGHT QUEST","vibe": "Dark / Moody",   "colors": ["#b14bff", "#6a2cff", "#2de2e6", "#ff3ea5", "#070310"] }
+    { "id": "br4", "name": "MIDNIGHT QUEST","vibe": "Dark / Moody",   "colors": ["#b14bff", "#6a2cff", "#2de2e6", "#ff3ea5", "#070310"] },
+    { "id": "br5", "name": "RETRO POP",     "vibe": "Bold / Fun",     "colors": ["#ff5d8f", "#ffd23f", "#2ec4b6", "#3a86ff", "#1a0b22"] },
+    { "id": "br6", "name": "COTTON SKY",    "vibe": "Pastel / Dream", "colors": ["#ffc2e2", "#c8b6ff", "#b8f1ff", "#caffbf", "#fff3b0"] }
   ],
 
   "social": [
@@ -51,12 +53,20 @@
   ],
 
   "businessCards": [
-    { "id": "bc1", "name": "GOLD FOIL CLASSIC", "rarity": "LEGENDARY", "stock": "350gsm matte", "swatch": "#ffe34d" },
-    { "id": "bc2", "name": "NEON SPLICE",       "rarity": "EPIC",      "stock": "Spot UV gloss", "swatch": "#39ff14" },
-    { "id": "bc3", "name": "PASTEL MINIMAL",    "rarity": "RARE",      "stock": "Soft-touch",    "swatch": "#ffb3e6" },
-    { "id": "bc4", "name": "DIE-CUT CORNER",    "rarity": "EPIC",      "stock": "Rounded 400gsm", "swatch": "#2de2e6" },
-    { "id": "bc5", "name": "RISO DOUBLE",       "rarity": "RARE",      "stock": "Risograph 2-color", "swatch": "#ff3ea5" },
-    { "id": "bc6", "name": "HOLO PRISM",        "rarity": "LEGENDARY", "stock": "Holographic foil", "swatch": "#b14bff" }
+    {
+      "id": "bc1", "name": "NAILS BY SARAH", "rarity": "EPIC",
+      "stock": "Matte 400gsm · loyalty card",
+      "swatch": "#b8d4c0",
+      "front": "assets/cards/nails-front.png",
+      "back":  "assets/cards/nails-back.png"
+    },
+    {
+      "id": "bc2", "name": "PRISM", "rarity": "LEGENDARY",
+      "stock": "Chrome on black · QR back",
+      "swatch": "#c9c9d4",
+      "front": "assets/cards/prism-front.png",
+      "back":  "assets/cards/prism-back.png"
+    }
   ],
 
   "about": {
@@ -72,11 +82,12 @@
       { "label": "SPEED",      "value": 80 }
     ],
     "skills": ["Brand Identity", "Logo Design", "Type Design", "Packaging", "Social Graphics", "Art Direction"],
-    "tools": ["Illustrator", "Photoshop", "Figma", "InDesign", "Procreate", "Blender"],
+    "tools": ["Illustrator", "Photoshop", "Figma", "InDesign", "Procreate", "Canva"],
     "experience": [
-      { "role": "Freelance Brand Designer", "place": "Self-employed",   "years": "2023 — NOW" },
-      { "role": "Junior Designer",          "place": "Studio (Agency)", "years": "2022 — 2023" },
-      { "role": "BA Graphic Design",        "place": "University",      "years": "2019 — 2022" }
+      { "role": "Freelance Sales & Marketing", "place": "Self-employed",     "years": "2023 — NOW" },
+      { "role": "Social Media Manager",        "place": "Pinterest & Instagram", "years": "1 YEAR" },
+      { "role": "Admin & Sales",               "place": "Various roles",        "years": "PREV." },
+      { "role": "BA Law & Criminology",        "place": "University",           "years": "2020 — 2023" }
     ]
   },
 
