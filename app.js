@@ -484,11 +484,15 @@
   }
 
   /* ---------- SOCIAL ARCADE ---------- */
+  function socialArt(s, label){
+    if(s.image) return `<img class="arcade-img" src="${esc(s.image)}" alt="${esc(s.title)}" loading="lazy" />`;
+    return phTile(label, s.swatch);
+  }
   function renderSocial(){
     const items = state.data.social.map(s=>`
       <div class="arcade-cell" data-id="${esc(s.id)}">
         <div class="arcade-corner">${esc(s.platform)}</div>
-        ${phTile('POST IMG', s.swatch)}
+        ${socialArt(s, 'POST IMG')}
         <div class="arcade-over">
           <div class="arcade-title">${esc(s.title)}</div>
           <div class="arcade-plat">${esc(s.platform)}</div>
@@ -501,8 +505,8 @@
       c.addEventListener('mouseenter', sfx.hover);
       c.addEventListener('click', ()=>{
         const s = state.data.social.find(x=>x.id===c.dataset.id);
-        makeWindow({ title: s.title, bodyHTML: `
-          ${phTile('SOCIAL GRAPHIC', s.swatch)}
+        makeWindow({ title: s.title, w: s.image?340:undefined, bodyHTML: `
+          ${s.image ? `<img class="arcade-img-full" src="${esc(s.image)}" alt="${esc(s.title)}" />` : phTile('SOCIAL GRAPHIC', s.swatch)}
           <div class="win-row"><b>PLATFORM</b><span>${esc(s.platform)}</span></div>
           <div class="win-row"><b>LIKES</b><span>♥ ${esc(s.likes)}</span></div>` });
       });

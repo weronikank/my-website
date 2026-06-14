@@ -398,6 +398,8 @@ button{ font-family: var(--font-pixel); cursor: pointer; }
 }
 .arcade-cell:hover{ transform: translate(-2px,-3px) rotate(-1deg); box-shadow: 8px 9px 0 var(--win-dark); }
 .arcade-cell .ph{ aspect-ratio: 1/1; border:none; }
+.arcade-img{ display:block; width:100%; aspect-ratio: 1/1; object-fit: cover; }
+.arcade-img-full{ display:block; width:100%; height:auto; border: 3px solid rgba(255,255,255,.25); margin-bottom: 10px; }
 .arcade-over{
   position: absolute; inset: 0; background: rgba(8,3,14,.78);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
