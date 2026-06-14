@@ -47,6 +47,7 @@
     { "id": "sc0a", "title": "MORNING BREW CLUB", "platform": "Poster", "likes": "1.8k", "swatch": "#caa46a", "image": "assets/social/morning-brew.jpg" },
     { "id": "sc0b", "title": "VOID SIGNAL",       "platform": "Poster", "likes": "2.1k", "swatch": "#ff5a3c", "image": "assets/social/void-signal.jpg" },
     { "id": "sc0c", "title": "INTO THE WILD",     "platform": "Poster", "likes": "1.4k", "swatch": "#3f5a45", "image": "assets/social/into-the-wild.jpg" },
+    { "id": "sc0d", "title": "GROUP CHAT",        "platform": "Carousel", "likes": "3.7k", "swatch": "#8b5cf6", "image": "assets/social/group-chat.jpg" },
     { "id": "sc1", "title": "LAUNCH CAROUSEL",  "platform": "Instagram", "likes": "2.4k", "swatch": "#ff3ea5" },
     { "id": "sc2", "title": "QUOTE SERIES",     "platform": "Instagram", "likes": "1.1k", "swatch": "#b14bff" },
     { "id": "sc3", "title": "SALE BANNER",      "platform": "Story",     "likes": "980",  "swatch": "#39ff14" },
