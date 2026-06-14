@@ -20,6 +20,8 @@
   ],
 
   "logos": [
+    { "id": "lg-melo", "name": "MELO CREAMERY", "year": "2025", "tags": ["Ice Cream", "Logo Suite"], "swatch": "#7c83c4", "note": "A soft, hand-drawn identity for a slow-treats ice cream parlour — two versions: an illustrated 'Creamery' badge and the rounded 'melo' wordmark. Scroll between them.", "variants": ["assets/logos/melo-2.jpg", "assets/logos/melo-1.jpg"] },
+    { "id": "lg-evergreen", "name": "EVERGREEN", "year": "2025", "tags": ["Botanical", "Emblem"], "swatch": "#3d5a45", "note": "A clean circular leaf emblem for a natural, sustainable brand — minimal line-and-fill botanical mark.", "image": "assets/logos/evergreen.png" },
     { "id": "lg1", "name": "BLOOM COSMETICS", "year": "2025", "tags": ["Beauty", "Wordmark"], "swatch": "#ff3ea5", "note": "A soft serif mark with a petal counter built into the 'O'." },
     { "id": "lg2", "name": "PIXEL DINER",     "year": "2025", "tags": ["Food", "Mascot"],    "swatch": "#39ff14", "note": "8-bit burger mascot for a retro arcade-themed diner." },
     { "id": "lg3", "name": "NOVA STUDIO",     "year": "2024", "tags": ["Tech", "Monogram"],  "swatch": "#2de2e6", "note": "An N/V monogram that doubles as a shooting star." },

@@ -413,27 +413,77 @@
   }
 
   /* ---------- LOGO VAULT ---------- */
+  function logoImages(l){
+    if(l.variants && l.variants.length) return l.variants;
+    if(l.image) return [l.image];
+    return [];
+  }
+  function logoTileArt(l){
+    const imgs = logoImages(l);
+    if(imgs.length) return `<img class="vault-img" src="${esc(imgs[0])}" alt="${esc(l.name)}" loading="lazy" />`
+      + (imgs.length>1 ? `<span class="vault-badge">×${imgs.length}</span>` : '');
+    return phTile('LOGO IMG', l.swatch);
+  }
   function renderLogos(){
-    const items = state.data.logos.map(l=>`
+    const items = state.data.logos.map(l=>{
+      const multi = logoImages(l).length>1;
+      return `
       <div class="vault-cell" data-id="${esc(l.id)}">
-        ${phTile('LOGO IMG', l.swatch)}
+        <div class="vault-art" style="--c:${l.swatch}">${logoTileArt(l)}</div>
         <div class="vault-name">${esc(l.name)}</div>
         <div class="vault-meta"><span>${esc(l.year)}</span><span>${esc(l.tags.join(' / '))}</span></div>
-        <div class="vault-open">▣ CLICK TO OPEN WINDOW</div>
-      </div>`).join('');
-    sectionShell('logos','01','LOGO VAULT','Identity marks & wordmarks. Click any item to pop it open in a draggable window.',
+        <div class="vault-open">▣ ${multi ? 'SCROLL '+logoImages(l).length+' VERSIONS' : 'CLICK TO OPEN'}</div>
+      </div>`;
+    }).join('');
+    sectionShell('logos','01','LOGO VAULT','Identity marks & wordmarks. Click any item to pop it open in a draggable window — multi-version logos scroll like cards.',
       `<div class="vault-grid">${items}</div>`);
     $$('#screen-logos .vault-cell').forEach(c=>{
       c.addEventListener('mouseenter', sfx.hover);
       c.addEventListener('click', ()=>{
         const l = state.data.logos.find(x=>x.id===c.dataset.id);
-        makeWindow({ title: l.name + '.png', bodyHTML: `
-          ${phTile('LOGO PREVIEW', l.swatch)}
-          <div class="win-row"><b>YEAR</b><span>${esc(l.year)}</span></div>
-          <div class="win-tags">${l.tags.map(t=>`<span class="win-tag">${esc(t)}</span>`).join('')}</div>
-          <p class="win-note">${esc(l.note)}</p>` });
+        openLogoWindow(l);
       });
     });
+  }
+
+  function openLogoWindow(l){
+    const imgs = logoImages(l);
+    const meta = `
+      <div class="win-row"><b>YEAR</b><span>${esc(l.year)}</span></div>
+      <div class="win-tags">${l.tags.map(t=>`<span class="win-tag">${esc(t)}</span>`).join('')}</div>
+      <p class="win-note">${esc(l.note)}</p>`;
+
+    if(imgs.length <= 1){
+      const art = imgs.length ? `<img class="logo-img-full" src="${esc(imgs[0])}" alt="${esc(l.name)}" />` : phTile('LOGO PREVIEW', l.swatch);
+      makeWindow({ title: l.name, w: imgs.length?360:undefined, bodyHTML: art + meta });
+      return;
+    }
+
+    // multi-version → scrollable viewer (same pattern as business cards)
+    const n = imgs.length;
+    const slides = imgs.map((src,i)=>`<figure class="cardview-slide"><div class="cardview-frame logo-frame">${`<img class="logo-img-full" src="${esc(src)}" alt="${esc(l.name)} v${i+1}" />`}</div><figcaption>VERSION ${i+1}</figcaption></figure>`).join('');
+    const dots = imgs.map((_,i)=>`<span class="cv-dot ${i===0?'is-on':''}" data-dot="${i}"></span>`).join('');
+    const win = makeWindow({ title: l.name, w: 380, cls:'card-win', bodyHTML: `
+      <div class="cardview">
+        <div class="cardview-track" data-track>${slides}</div>
+        <div class="cardview-nav">
+          <button class="cv-btn" data-prev>◀ PREV</button>
+          <div class="cardview-dots">${dots}</div>
+          <button class="cv-btn" data-next>NEXT ▶</button>
+        </div>
+      </div>${meta}` });
+
+    const track = win.querySelector('[data-track]');
+    const dotEls = [...win.querySelectorAll('.cv-dot')];
+    let cur = 0;
+    const goTo = (i)=>{ cur=Math.max(0,Math.min(n-1,i)); track.scrollTo({left: cur*track.clientWidth, behavior:'smooth'}); };
+    win.querySelector('[data-prev]').addEventListener('click', e=>{ e.stopPropagation(); goTo(cur-1); sfx.select(); });
+    win.querySelector('[data-next]').addEventListener('click', e=>{ e.stopPropagation(); goTo(cur+1); sfx.select(); });
+    dotEls.forEach((d,i)=> d.addEventListener('click', e=>{ e.stopPropagation(); goTo(i); beep(660,.04); }));
+    track.addEventListener('scroll', ()=>{
+      const idx = Math.round(track.scrollLeft / Math.max(1,track.clientWidth));
+      cur = idx; dotEls.forEach((d,i)=> d.classList.toggle('is-on', i===idx));
+    }, {passive:true});
   }
 
   /* ---------- FONT FORGE ---------- */

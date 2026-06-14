@@ -345,6 +345,19 @@ button{ font-family: var(--font-pixel); cursor: pointer; }
 }
 .vault-cell:hover{ transform: translate(-2px,-3px); border-color: var(--green); box-shadow: 8px 9px 0 var(--win-dark); }
 .vault-cell .ph{ aspect-ratio: 4/3; }
+.vault-art{
+  position: relative; aspect-ratio: 4/3; overflow: hidden;
+  border: 3px solid rgba(255,255,255,.18);
+  background: #ecead2;
+  display:flex; align-items:center; justify-content:center;
+}
+.vault-img{ width:100%; height:100%; object-fit: contain; padding: 8px; image-rendering:auto; }
+.vault-badge{
+  position:absolute; top:6px; right:6px;
+  font-family: var(--font-tiny); font-size:10px; color:#2a0e26;
+  background: var(--yellow); padding: 3px 6px;
+  box-shadow: 2px 2px 0 var(--win-dark);
+}
 .vault-name{ font-family: var(--font-pixel); font-size: 11px; color: var(--ink); margin-top: 10px; }
 .vault-meta{ font-family: var(--font-mono); font-size: 18px; color: var(--pink-soft); display:flex; justify-content:space-between; }
 .vault-open{ font-family: var(--font-tiny); font-size: 10px; color: var(--green); margin-top: 6px; }
@@ -452,6 +465,10 @@ button{ font-family: var(--font-pixel); cursor: pointer; }
   border:3px solid var(--win-dark); background:#0d0614;
 }
 .cardview-frame .inv-img, .cardview-frame img{ width:100%; height:100%; object-fit:cover; image-rendering:auto; }
+/* logos: show the WHOLE mark (contain) on a matching cream ground, not cropped */
+.cardview-frame.logo-frame{ aspect-ratio: 1.5/1; background:#ecead2; }
+.cardview-frame.logo-frame img{ object-fit: contain; padding: 6px; }
+.logo-img-full{ display:block; width:100%; height:auto; background:#ecead2; border: 3px solid rgba(255,255,255,.25); margin-bottom: 10px; }
 .cardview-slide figcaption{ font-family: var(--font-tiny); font-size:10px; letter-spacing:2px; color: var(--win-bar2); }
 .cardview-nav{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:10px; }
 .cv-btn{
