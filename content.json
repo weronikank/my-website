@@ -72,6 +72,27 @@
       "swatch": "#c9c9d4",
       "front": "assets/cards/prism-front.png",
       "back":  "assets/cards/prism-back.png"
+    },
+    {
+      "id": "bc3", "name": "VOID SIGNAL", "rarity": "LEGENDARY",
+      "stock": "Grain gradient · cyber type",
+      "swatch": "#e0556f",
+      "front": "assets/cards/voidsignal-front.jpg",
+      "back":  "assets/cards/voidsignal-back.jpg"
+    },
+    {
+      "id": "bc4", "name": "MORNING BREW", "rarity": "EPIC",
+      "stock": "Soft cream · coffee dates",
+      "swatch": "#e8c98f",
+      "front": "assets/cards/morningbrew-front.jpg",
+      "back":  "assets/cards/morningbrew-back.jpg"
+    },
+    {
+      "id": "bc5", "name": "CHERRY KISS", "rarity": "LEGENDARY",
+      "stock": "Cream stock · coquette ribbon · QR back",
+      "swatch": "#b51e1e",
+      "front": "assets/cards/cherrykiss-front.png",
+      "back":  "assets/cards/cherrykiss-back.png"
     }
   ],
 
